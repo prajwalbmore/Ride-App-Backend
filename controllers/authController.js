@@ -30,3 +30,14 @@ export const login = async (req, res) => {
     sendResponse(res, false, error.message);
   }
 };
+export const addQR = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    user.qrCode = req.file?.filename || null;
+    sendResponse(res, true, "QR uploaded successful", {
+      user,
+    });
+  } catch (error) {
+    sendResponse(res, false, error.message);
+  }
+};

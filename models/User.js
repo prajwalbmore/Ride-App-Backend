@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, unique: true },
     phone: String,
     password: String,
+    qrCode: String,
     role: { type: String, enum: ["user", "driver"], default: "user" },
   },
   { timestamps: true }
