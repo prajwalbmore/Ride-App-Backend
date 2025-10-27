@@ -11,7 +11,7 @@ export const addRide = async (req, res) => {
 };
 
 export const getRides = async (req, res) => {
-  const rides = await Ride.find().populate("driverId", "name phone");
+  const rides = await Ride.find().populate("driverId", "name phone qrCode");
   sendResponse(res, true, "All rides", rides);
 };
 
@@ -21,7 +21,7 @@ export const getRidesByDriver = async (req, res) => {
   try {
     const rides = await Ride.find({ driverId }).populate(
       "driverId",
-      "name phone"
+      "name phone qrCode"
     );
     if (!rides.length) {
       return sendResponse(res, false, "No rides found for this driver", []);

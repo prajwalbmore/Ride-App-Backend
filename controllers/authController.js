@@ -34,6 +34,7 @@ export const addQR = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     user.qrCode = req.file?.filename || null;
+    await user.save();
     sendResponse(res, true, "QR uploaded successful", {
       user,
     });
