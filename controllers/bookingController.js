@@ -51,7 +51,8 @@ export const createBooking = async (req, res) => {
       rideStatus: "pending",
       paymentStatus: "pending",
     });
-
+    ride.seatsAvailable = parseInt(ride.seatsAvailable) - parseInt(totalSeats);
+    await ride.save();
     sendResponse(res, true, "Booking submitted successfully", booking);
   } catch (error) {
     console.error(error);
@@ -99,8 +100,8 @@ export const updateBookingStatus = async (req, res) => {
       { rideStatus, paymentStatus },
       { new: true }
     );
-    ride.seatsAvailable =
-      parseInt(ride.seatsAvailable) - parseInt(existingBooking.totalSeats);
+    // ride.seatsAvailable =
+    //   parseInt(ride.seatsAvailable) - parseInt(existingBooking.totalSeats);
     ride.save();
     if (!booking) {
       return sendResponse(res, false, "Booking not found");
