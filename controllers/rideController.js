@@ -11,7 +11,10 @@ export const addRide = async (req, res) => {
 };
 
 export const getRides = async (req, res) => {
-  const rides = await Ride.find().populate("driverId", "name phone qrCode");
+  const rides = await Ride.find({ seatsAvailable: { $gt: 0 } }).populate(
+    "driverId",
+    "name phone qrCode"
+  );
   sendResponse(res, true, "All rides", rides);
 };
 
